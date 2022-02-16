@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { MenuBarTop } from 'src/components/MenuBarTop'
 import { MenuBarBtm } from 'src/components/MenuBarBtm'
 import { PictCard } from 'src/components/PictCard'
-import { PictList } from 'src/components/PictList'
 
 const Home: NextPage = () => {
   return (
@@ -12,11 +11,15 @@ const Home: NextPage = () => {
       </div>
       <div className='h-max m-5'>
         <PictCard info = {{
-            imgid: "https://dl.easyuploader.cloud/20220128205018_57785162.jpg", 
+            imgid: "/image/sample/picture/001.jpg", 
             name: "Name",
             date: "2022/01/28 20:00:00",
             tag: "#AAA #BBB #CCC", 
-            message: "コメント"
+            message: "コメント",
+            heart: 111,
+            rose: 222,
+            present: 333,
+            diamond: 444,
         }}/>
       </div>
       <div>
