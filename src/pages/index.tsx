@@ -3,33 +3,47 @@ import { MenuBarTop } from 'src/components/MenuBarTop'
 import { MenuBarBtm } from 'src/components/MenuBarBtm'
 import { PAGESETTING } from 'public/pagesetting';
 import Link from 'next/link';
-import Head from 'next/head';
 
 const Home: NextPage = () => {
+
   return (
-    <div className='h-screen bg-red-50'>
+    <div className='h-screen bg-white'>
       <div>
         <MenuBarTop Page = {{name: "index"}} />
       </div>
-      <div className='text-rose-500 h-max m-5'>
+      <div className='text-gray-400 h-max m-5'>
         <div>
           このサイトはデモンストレーション用に作成しています。<br />
           以下の機能をお試しいただけます。
         </div>
         <div className="pt-4 font-bold">
-          Search
+          検索機能
         </div>
         <div>
           メニューバーのテキストボックスにキーワードを入れて「Search」ボタンをクリックしてください。<br />
-          画像のタグを検索し、キーワードを含む画像の一覧を表示します。
+          画像のタグを検索し、キーワードを含む画像の一覧を表示します。<br />
+          現在はサンプルデータとして「AAA」と検索していただくと、登録済の2件のデータが表示されます。
         </div>  
-        <div className="hover:text-rose-300 pt-4 font-bold">
-          <Link href = {PAGESETTING.PATH.PICTCARD}>
-            <a>Picture</a>
+        <div className="pt-4 font-bold">
+          画像詳細
+        </div> 
+        <div>
+          検索結果のサムネイルをクリックすると画像詳細表示します。<br />
+          画像の下のアイコンをクリックし、気に入った画像に対してハートやプレゼントを贈ることができます。
+        </div> 
+        <div className="pt-4 font-bold">
+            システムについて
+        </div> 
+        <div>
+          フロントエンド使用言語：React、Next.js、TypeScript、Tailwind CSS
+          →
+          <Link href = 'https://github.com/MMMMori/MDT_Sample'>
+            <a className="hover:text-rose-300">GitHub</a>
           </Link>
         </div> 
         <div>
-          画像詳細表示のページです。画像に対してハートやプレゼントを贈ることができます。
+          バックエンド使用言語：Node.js、Javascript<br />
+          バックエンドシステム構成：AWS Amplify、API Gateway、Lambda、DynamoDB
         </div> 
       </div>
       <div>
