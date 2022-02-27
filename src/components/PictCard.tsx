@@ -1,6 +1,9 @@
 import Image from 'next/image';
-import React, { Component } from 'react'
 import { useCallback, useEffect, useState } from 'react';
+
+type PictCardProps = {
+    id: string;
+}
 
 type PictCardInfoTarget = {
     id: string;
@@ -31,8 +34,9 @@ let pictCardInfoSauce:  PictCardInfoSauce= {
     diamond: 0
 };
 
-export const PictCard = () => {
+export const PictCard = (props: PictCardProps) => {
     const [id, setId] = useState("");
+    
     let pictCardInfoTarget: PictCardInfoTarget = {
         id: id,
         extension: ".jpg"
@@ -45,19 +49,10 @@ export const PictCard = () => {
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
 
-    const getParams = useCallback((params: string): { [key: string]: string } => {
-        const paramsArray = params.slice(1).split('&')
-        const paramsObject: { [key: string]: string } = {}
-        paramsArray.forEach(param => {
-            paramsObject[param.split('=')[0]] = param.split('=')[1]
-        });
-        setId(paramsObject["ret"]);
-        return paramsObject;
-    },[]);
-
     const postGetJson = useCallback(async () => {
         // using built in JSON utility package turn object to string and store in a variable
         let raw = JSON.stringify({"id":id});
+        console.log(raw);
         // create a JSON object with parameters for API call and store in a variable
         const requestOptions = {
             method: 'POST',
@@ -86,14 +81,13 @@ export const PictCard = () => {
                 const newpictCardObj = {...pictCardObj, ...pictCardInfoSauce};
                 return newpictCardObj;
             });
-            console.log(pictCardObj);
           }
         })
         .catch(error => console.log('error', error));
     },[id])
     
     useEffect(() => {
-        getParams(location.search);
+        setId(props.id);
         postGetJson();
     }, [id]);
 
@@ -139,7 +133,6 @@ export const PictCard = () => {
         .then(response => response.text())
         .then(result => JSON.parse(result))
         .catch(error => console.log('error', error));
-        console.log(raw);
         postGetJson();
     },[id])
 

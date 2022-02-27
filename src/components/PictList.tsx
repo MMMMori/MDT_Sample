@@ -3,23 +3,14 @@ import Image from 'next/image';
 import { PAGESETTING } from 'public/pagesetting';
 import { useCallback, useEffect, useState } from 'react';
 
-export const PictList = () => {
-    const [idArray, setIdArray] = useState([""]);
-    
-    const getParams = useCallback((params: string): { [key: string]: string } => {
-        const paramsArray = params.slice(1).split('&')
-        const paramsObject: { [key: string]: string } = {}
-        paramsArray.forEach(param => {
-            paramsObject[param.split('=')[0]] = param.split('=')[1]
-        });
-        setIdArray(paramsObject["ret"].split('/'));
-        return paramsObject;
-    },[idArray]);
-
-    const list = idArray.map(id => {
+type PictListProps = {
+    ids: string[];
+    keyword: string;
+}  
+export const PictList = (props: PictListProps) => {
+    const list = props.ids.map(id => {
         let strimage: string = '/image/sample/thumbnail/'+ id + '.jpg';
-        let url: string = PAGESETTING.PATH.PICTCARD + "?ret=" + id;
-        console.log(strimage);
+        let url: string = PAGESETTING.PATH.PICTCARD + "?ret=" + id + "&key=" + props.keyword;
         return (
             <div key={id}>
                 <Link href= {url}><a>
@@ -29,14 +20,9 @@ export const PictList = () => {
         );
     });
     
-    useEffect(() => {
-        getParams(location.search);
-        console.log(idArray);
-    }, []);
-
     return (
         <div>
-            { idArray[0] === "" ? (
+            { props.ids[0] === "" ? (
                 <div></div>
             ) : (
                 <div className="text-gray-400">

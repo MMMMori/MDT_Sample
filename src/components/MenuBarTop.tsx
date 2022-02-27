@@ -1,16 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { PAGESETTING } from 'public/pagesetting';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState, useEffect  } from 'react';
 
 type MenuBarTopProps = {
-    Page: {
-        name: string;
-    }
-}
+    keyword: string;
+}  
 
 export const MenuBarTop = (props: MenuBarTopProps) => {
-    const [text, setText] = useState('')
+    const [text, setText] = useState("");
+    const [loadflg, setloadflg] = useState(0);
 
     const handleChange = useCallback((e) => {
        setText(() => e.target.value);
@@ -42,10 +41,16 @@ export const MenuBarTop = (props: MenuBarTopProps) => {
             resultID = item.PictDataId.S;
             console.log(resultID);
           }
-          location.href = PAGESETTING.PATH.PICTLIST + "?ret=" + resultID;
+          location.href = PAGESETTING.PATH.PICTLIST + "?ret=" + resultID + "&key=" + text;
         })
         .catch(error => console.log('error', error));        
-    },[text])
+    },[text]);
+
+    useEffect(() => {
+        if (loadflg > 1) return;
+        setText(() => props.keyword);
+        setloadflg(loadflg=> loadflg + 1);
+    }, [loadflg]);    
 
     return ( 
         <div className="bg-gray-400 flex">
