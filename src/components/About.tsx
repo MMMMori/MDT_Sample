@@ -32,7 +32,10 @@ export const About = () => {
                     </Link>
                 </div> 
                 <div>
-                    バックエンド使用言語：Node.js、Javascript<br />
+                    バックエンド使用言語：Node.js、Javascript
+                    →<Link href = 'https://github.com/MMMMori/MDT_BackEnd'>
+                        <a className="hover:text-rose-300">GitHub</a>
+                    </Link><br />
                     バックエンドシステム構成：AWS Amplify、API Gateway、Lambda、DynamoDB
                 </div> 
             </div>
